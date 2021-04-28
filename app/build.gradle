@@ -1,0 +1,61 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+}
+//apply plugin: 'com.google.gms.google-services'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.mrhi2020.ex86firebasestore"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        //멀티덱스 사용설정
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //Firebase 플랫폼 코어 라이브러리
+    implementation platform('com.google.firebase:firebase-bom:26.3.0')
+
+    //각 제품별 라이브러리
+    //Firebase Cloud Store
+    implementation 'com.google.firebase:firebase-firestore:21.4.3'
+
+    //외부라이브러리를 추가하다보면 multi dex 에러를 만나는 경우가 있음.
+    //안드로이드 자바코드는 class로 컴파일되고 또다시 dex라는 문서로 변환됨
+    //dex문서안에 최대 65,565개의 메소드만 컴파일 됨.
+    //그때 dex문서를 2개로 분할해서 만들어야 하는데..이게 그냥되지 않음.
+
+    //멀티덱스 사용 라이브러리
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+}
